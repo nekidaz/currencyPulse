@@ -1,0 +1,13 @@
+version: '3.8'  # Версия Docker Compose
+
+services:
+  redis:
+    image: redis:latest  # Используем образ Redis из Docker Hub
+    container_name: my-redis  # Название контейнера
+    ports:
+      - "6379:6379"  # Проброс порта хоста на порт контейнера
+    volumes:
+      - redis_data:/data  # Монтирование тома для данных Redis
+
+volumes:
+  redis_data:  # Определение тома для данных Redis
