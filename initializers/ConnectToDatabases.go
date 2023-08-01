@@ -36,7 +36,7 @@ func ConnectToRedis() {
 	dsn := fmt.Sprintf("%s:%s", os.Getenv("REDIS_HOST"), os.Getenv("REDIS_PORT"))
 
 	RDB = redis.NewClient(&redis.Options{
-		Addr: dsn, // Поменяйте адрес и порт на соответствующие вашей конфигурации Redis.
+		Addr: dsn, 
 	})
 
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
