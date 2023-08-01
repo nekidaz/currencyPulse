@@ -67,7 +67,7 @@ func init() {
 	data_fetcher.UpdateCurrencyData()
 	// Период обновления
 	period := time.Hour * 6
-	// Запуск периодического обновления данных по интервалу
+	// Запуск периодического обновления данных в фоне 
 	go helpers.UpdateCurrencyDataPeriodically(period, data_fetcher.UpdateCurrencyData)
 }
 ```
