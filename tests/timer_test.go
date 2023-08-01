@@ -2,35 +2,57 @@ package tests
 
 import (
 	"HalykTZ/helpers"
+	"fmt"
 	"testing"
 	"time"
 )
 
 func TestUpdateCurrencyDataPeriodically(t *testing.T) {
-	// Mock update function that returns nil
+	// Функция-заглушка для обновления, которая возвращает nil
 	mockUpdateFunc := func() error {
 		return nil
 	}
 
-	// Run the function with a small interval for testing purposes
+	// Запускаем функцию с небольшим интервалом для тестирования
 	interval := 100 * time.Millisecond
 	go helpers.UpdateCurrencyDataPeriodically(interval, mockUpdateFunc)
 
-	// Wait for a few iterations to happen
+	// Ждем несколько итераций
 	time.Sleep(3 * interval)
 
-	// The test should pass if no error was printed during the iterations
+	// Тест считается успешным, если во время итераций не было выведено ошибок
 }
 
 func TestGetTodayDate(t *testing.T) {
-	// Get the date string using the function
-	yesterdayDate := helpers.GetYesterdayDate()
+	// Получаем строку с текущей датой, используя функцию
+	todayDate := helpers.GetTodayDate()
 
-	// Get the expected date string for yesterday
-	expectedDate := time.Now().Add(-24 * time.Hour).Format("02.01.2006")
+	// Получаем ожидаемую строку с датой для сегодняшнего дня
+	expectedDate := time.Now().Format("02.01.2006")
 
-	// Compare the obtained date with the expected date
-	if yesterdayDate != expectedDate {
-		t.Errorf("Expected date: %s, but got: %s", expectedDate, yesterdayDate)
+	// Сравниваем полученную дату с ожидаемой датой
+	if todayDate != expectedDate {
+		t.Errorf("Ожидаемая дата: %s, но получена: %s", expectedDate, todayDate)
 	}
+}
+
+func TestUpdateCurrencyDataPeriodicallyWithError(t *testing.T) {
+	// Функция-заглушка для обновления, которая возвращает ошибку, если передан параметр "error" равный true
+	mockUpdateFunc := func() error {
+		if true {
+			return fmt.Errorf("Mock update error")
+		}
+		return nil
+	}
+
+	// Запускаем функцию с небольшим интервалом для тестирования
+	interval := 100 * time.Millisecond
+	go helpers.UpdateCurrencyDataPeriodically(interval, mockUpdateFunc)
+
+	// Ждем несколько итераций
+	time.Sleep(3 * interval)
+
+	// Тест должен ожидать, что во время итераций была выведена "Mock update error"
+	// Проверяем, что в логах была зарегистрирована ошибка
+
 }

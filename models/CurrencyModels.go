@@ -2,6 +2,7 @@ package models
 
 import "gorm.io/gorm"
 
+// модель валюты
 type CurrencyRate struct {
 	gorm.Model
 	Fullname    string  `xml:"fullname"`

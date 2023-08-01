@@ -2,116 +2,70 @@ package controllers
 
 import (
 	"HalykTZ/data_fetcher"
-	"HalykTZ/initializers"
 	"HalykTZ/models"
-	"context"
 	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"time"
+	"strings"
 )
 
 func GetAllCurrency(c *gin.Context) {
-	ctx := context.Background()
-
-	// Проверяем наличие данных в Redis
-	value, err := initializers.RDB.Get(ctx, "currency_rates").Result()
-	if err == nil {
-		// Данные найдены в Redis, возвращаем их клиенту
-		c.Header("Content-Type", "application/json")
-		c.String(http.StatusOK, value)
+	// Получаем данные курсов валют из Redis или обновляем их при необходимости
+	jsonData, err := data_fetcher.GetCurrencyRatesFromRedis()
+	if err != nil {
+		c.String(http.StatusInternalServerError, "Error getting currency data")
 		return
 	}
 
-	// Данные в Redis отсутствуют, проверяем базу данных
-	var currencyRates []models.CurrencyRate
-	if err := initializers.DB.Find(&currencyRates).Error; err == nil {
-		// Данные найдены в базе данных, сохраняем их в Redis и возвращаем клиенту
-		jsonData, err := json.Marshal(currencyRates)
-		if err != nil {
-			c.String(http.StatusInternalServerError, "Error marshalling JSON")
-			return
-		}
-
-		// Сохраняем данные в Redis на 6 часов
-		err = initializers.RDB.Set(ctx, "currency_rates", jsonData, 6*time.Hour).Err()
-		if err != nil {
-			c.String(http.StatusInternalServerError, "Failed to save data to Redis")
-			return
-		}
-
-		c.Header("Content-Type", "application/json")
-		c.String(http.StatusOK, string(jsonData))
-		return
-	}
-
-	// Данные не найдены в Redis и базе данных, обновляем данные и возвращаем клиенту
-	if err := data_fetcher.UpdateCurrencyData(); err != nil {
-		c.String(http.StatusInternalServerError, "Error updating currency data")
-		return
-	}
-
-	// Повторно вызываем функцию, чтобы получить данные из Redis
-	GetAllCurrency(c)
+	// Отправляем клиенту данные
+	c.Header("Content-Type", "application/json")
+	c.String(http.StatusOK, string(jsonData))
 }
 
 func GetCurrencyByCode(c *gin.Context) {
-	ctx := context.Background()
-
 	// Получаем параметр "code" из URL
-	code := c.Param("code")
-	// Проверяем наличие данных в Redis
-	value, err := initializers.RDB.Get(ctx, "currency_rates").Result()
-	if err == nil {
-		// Данные найдены в Redis, декодируем JSON и ищем курс валюты по коду
-		var currencyRatesXML struct {
-			Items []models.CurrencyRate `json:"items"`
-		}
-		if err := json.Unmarshal([]byte(value), &currencyRatesXML); err != nil {
-			c.String(http.StatusInternalServerError, "Error unmarshalling JSON")
-			return
-		}
+	code := strings.ToUpper(c.Param("code"))
 
-		for _, rate := range currencyRatesXML.Items {
-			if rate.Title == code {
-				c.Header("Content-Type", "application/json")
-				c.JSON(http.StatusOK, rate)
-				return
-			}
-		}
-
-		c.String(http.StatusNotFound, "Currency not found")
+	// Получаем данные курсов валют из Redis или обновляем их при необходимости
+	jsonData, err := data_fetcher.GetCurrencyRatesFromRedis()
+	if err != nil {
+		c.String(http.StatusInternalServerError, "Error getting currency data")
 		return
 	}
 
-	// Данные в Redis отсутствуют, проверяем базу данных
-	var rate models.CurrencyRate
-	if err := initializers.DB.Where("title = ?", code).First(&rate).Error; err == nil {
-		// Курс валюты найден в базе данных, сохраняем данные в Redis и возвращаем клиенту
-		jsonData, err := json.Marshal(rate)
-		if err != nil {
-			c.String(http.StatusInternalServerError, "Error marshalling JSON")
-			return
-		}
-
-		// Сохраняем данные в Redis на 6 часов
-		err = initializers.RDB.Set(ctx, "currency_rates", jsonData, 6*time.Hour).Err()
-		if err != nil {
-			c.String(http.StatusInternalServerError, "Failed to save data to Redis")
-			return
-		}
-
-		c.Header("Content-Type", "application/json")
-		c.String(http.StatusOK, string(jsonData))
+	// Декодируем JSON и ищем курс валюты по коду
+	var currencyRatesJSON struct {
+		Items []models.CurrencyRate `json:"items"`
+	}
+	if err := json.Unmarshal(jsonData, &currencyRatesJSON); err != nil {
+		c.String(http.StatusInternalServerError, "Error unmarshalling JSON")
 		return
 	}
 
-	// Курс валюты не найден в Redis и базе данных, обновляем данные и возвращаем клиенту
+	for _, rate := range currencyRatesJSON.Items {
+		if rate.Title == code {
+			c.Header("Content-Type", "application/json")
+			c.JSON(http.StatusOK, gin.H{
+				"Title":       rate.Title,
+				"FullName":    rate.Fullname,
+				"Description": rate.Description,
+				"Quant":       rate.Quant,
+				"Index":       rate.Index,
+				"Change":      rate.Change,
+			})
+			return
+		}
+	}
+
+	c.String(http.StatusNotFound, "Currency not found")
+}
+
+func UpdateData(c *gin.Context) {
+	// Обновляем данные курсов валют
 	if err := data_fetcher.UpdateCurrencyData(); err != nil {
 		c.String(http.StatusInternalServerError, "Error updating currency data")
 		return
 	}
 
-	// Повторно вызываем функцию, чтобы получить данные из Redis
-	GetCurrencyByCode(c)
+	c.String(http.StatusOK, "Currency data updated successfully")
 }
