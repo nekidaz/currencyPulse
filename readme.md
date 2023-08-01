@@ -26,20 +26,7 @@ git clone https://github.com/your-username/HalykTZ.git
 cd HalykTZ
 ```
 
-2. При надобности меняем .env | Если хотите просто проверить как работает сервис, то переходим на следющий пункт |:
-
-```bash
-DB_HOST= 
-DB_USER=
-DB_PASSWORD=
-DB_NAME=
-DB_PORT=
-
-REDIS_PORT = 
-REDIS_HOST = 
-```
-
-3. Запустите приложение:
+2. Запустите приложение:
 
 ```bash
 docker-compose up
