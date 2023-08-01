@@ -42,23 +42,7 @@ REDIS_HOST =
 3. Запустите приложение:
 
 ```bash
-<<<<<<< HEAD
 docker-compose up
-=======
-GET: http://localhost:8080/rates
-```
-### Получить валюту по коду  
-```bash
-GET: http://localhost:8080/rates/:code 
-```
-### Получить валюту по коду - Например  
-```bash
-GET: http://localhost:8080/rates/usd
-```
-### Обновить данные в кэше и в бд
-```bash
-POST: http://localhost:8080/update
->>>>>>> b6677f34ff153405f4be4057190b8ac8e9cc8154
 ```
 
 Приложение будет доступно по адресу `http://localhost:8080`.
