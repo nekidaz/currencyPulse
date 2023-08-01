@@ -42,22 +42,10 @@ func UnmarshalXML(xmlData []byte) ([]models.CurrencyRate, error) {
 func UpdateOrCreateCurrencyRate(rate *models.CurrencyRate) error {
 	var existingRate models.CurrencyRate
 
-	if err := initializers.DB.Where("title = ?", rate.Title).First(&existingRate).Error; err == nil {
-		// Запись с таким же title найдена, обновляем ее поля
-		existingRate.Fullname = rate.Fullname
-		existingRate.Description = rate.Description
-		existingRate.Quant = rate.Quant
-		existingRate.Index = rate.Index
-		existingRate.Change = rate.Change
-
-		if err := initializers.DB.Save(&existingRate).Error; err != nil {
-			return fmt.Errorf("Failed to update data in database: %v", err)
-		}
-	} else {
-		// Запись с таким title не найдена, создаем новую запись
-		if err := initializers.DB.Create(&rate).Error; err != nil {
-			return fmt.Errorf("Failed to save data to database: %v", err)
-		}
+	// Найти существующую запись или создать новую, если она не существует
+	err := initializers.DB.Where(models.CurrencyRate{Title: rate.Title}).Assign(rate).FirstOrCreate(&existingRate).Error
+	if err != nil {
+		return fmt.Errorf("Не удалось обновить или создать запись в базе данных: %v", err)
 	}
 
 	return nil

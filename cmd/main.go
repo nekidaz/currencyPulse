@@ -10,7 +10,6 @@ import (
 )
 
 func init() {
-
 	//подключение к постгре
 	initializers.ConnectToPostgres()
 	//подключение к редис
