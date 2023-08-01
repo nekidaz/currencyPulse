@@ -17,7 +17,7 @@ cd HalykBankTZ
 
 ### Получить все валюты 
 ```bash
-http://localhost:8080/rates
+GET: http://localhost:8080/rates
 ```
 ### Получить валюту по коду  
 ```bash
