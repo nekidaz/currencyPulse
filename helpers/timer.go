@@ -14,6 +14,7 @@ func UpdateCurrencyDataPeriodically(interval time.Duration, updateFunc func() er
 	for {
 		select {
 		case <-ticker.C:
+			fmt.Println("8")
 			if err := updateFunc(); err != nil {
 				fmt.Println("Error updating currency data:", err)
 			}
@@ -21,7 +22,7 @@ func UpdateCurrencyDataPeriodically(interval time.Duration, updateFunc func() er
 	}
 }
 
-func GetYesterdayDate() string {
-	yesterday := time.Now().Add(-24 * time.Hour)
-	return yesterday.Format("02.01.2006")
+func GetTodayDate() string {
+	todayday := time.Now()
+	return todayday.Format("02.01.2006")
 }

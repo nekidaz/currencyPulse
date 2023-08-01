@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7d37e62d-e721-4299-a614-2b46f22a55da" name="Changes" comment="" />
+    <list default="true" id="7d37e62d-e721-4299-a614-2b46f22a55da" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/rates_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/rates_controller.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_fetcher/data_fetcher.go" beforeDir="false" afterPath="$PROJECT_DIR$/data_fetcher/data_fetcher.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helpers/timer.go" beforeDir="false" afterPath="$PROJECT_DIR$/helpers/timer.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/timer_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/tests/timer_test.go" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -32,33 +38,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultGoTemplateProperty": "Go File",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.go.formatter.settings.were.checked": "true",
-    "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "RunOnceActivity.go.modules.automatic.dependencies.download": "true",
-    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "go.import.settings.migrated": "true",
-    "last_opened_file_path": "C:/Users/dilmu"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultGoTemplateProperty&quot;: &quot;Go File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.modules.automatic.dependencies.download&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/dilmu&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\dilmu\GolandProjects\HalykTZ\models" />
       <recent name="C:\Users\dilmu\GolandProjects\HalykTZ\cmd" />
     </key>
   </component>
-  <component name="RunManager" selected="Go Test.TestUpdateCurrencyDataPeriodically in HalykTZ/tests">
+  <component name="RunManager" selected="Go Build.go build HalykTZ/cmd">
     <configuration name="go build HalykTZ/cmd" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="HalykTZ" />
       <working_directory value="$PROJECT_DIR$" />
@@ -121,10 +127,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Build.go build HalykTZ/cmd" />
         <item itemvalue="Go Test.TestUpdateCurrencyDataPeriodically in HalykTZ/tests" />
         <item itemvalue="Go Test.TestGetYesterdayDate in HalykTZ/tests" />
         <item itemvalue="Go Test.TestGetAllCurrency in HalykTZ/tests" />
-        <item itemvalue="Go Build.go build HalykTZ/cmd" />
         <item itemvalue="Docker.Docker-composer.yaml: Compose Deployment" />
       </list>
     </recent_temporary>

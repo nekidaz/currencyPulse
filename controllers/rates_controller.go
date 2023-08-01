@@ -60,7 +60,6 @@ func GetCurrencyByCode(c *gin.Context) {
 
 	// Получаем параметр "code" из URL
 	code := c.Param("code")
-
 	// Проверяем наличие данных в Redis
 	value, err := initializers.RDB.Get(ctx, "currency_rates").Result()
 	if err == nil {

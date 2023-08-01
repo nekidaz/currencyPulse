@@ -22,7 +22,7 @@ func TestUpdateCurrencyDataPeriodically(t *testing.T) {
 	// The test should pass if no error was printed during the iterations
 }
 
-func TestGetYesterdayDate(t *testing.T) {
+func TestGetTodayDate(t *testing.T) {
 	// Get the date string using the function
 	yesterdayDate := helpers.GetYesterdayDate()
 
