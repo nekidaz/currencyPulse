@@ -1,8 +1,8 @@
 package tests
 
 import (
-	"HalykTZ/helpers"
 	"fmt"
+	"github.com/nekidaz/currencyPulse/helpers"
 	"testing"
 	"time"
 )

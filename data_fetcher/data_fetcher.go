@@ -1,13 +1,13 @@
 package data_fetcher
 
 import (
-	"HalykTZ/helpers"
-	"HalykTZ/initializers"
-	"HalykTZ/models"
 	"context"
 	"encoding/json"
 	"encoding/xml"
 	"fmt"
+	"github.com/nekidaz/currencyPulse/helpers"
+	"github.com/nekidaz/currencyPulse/initializers"
+	"github.com/nekidaz/currencyPulse/models"
 	"io/ioutil"
 	"net/http"
 	"time"

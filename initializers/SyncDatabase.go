@@ -1,8 +1,6 @@
 package initializers
 
-import (
-	"HalykTZ/models"
-)
+import "github.com/nekidaz/currencyPulse/models"
 
 func SyncDatabase() {
 	DB.AutoMigrate(&models.CurrencyRate{})

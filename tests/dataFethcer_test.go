@@ -1,8 +1,8 @@
 package tests
 
 import (
-	"HalykTZ/data_fetcher"
-	"HalykTZ/models"
+	"github.com/nekidaz/currencyPulse/data_fetcher"
+	"github.com/nekidaz/currencyPulse/models"
 	"github.com/stretchr/testify/assert"
 	"net/http"
 	"net/http/httptest"
@@ -58,7 +58,7 @@ func TestUnmarshalXML(t *testing.T) {
 	// Проверяем содержание десериализованного валютного курса
 	expectedCurrencyRate := models.CurrencyRate{
 		Title:       "USD",
-		Fullname:    "US Dollar",
+		FullName:    "US Dollar",
 		Description: 5.0,
 		Quant:       1,
 		Index:       "UP",
