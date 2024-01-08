@@ -23,6 +23,6 @@ func main() {
 	r.GET("/rates", controllers.GetAllCurrency)
 	r.GET("/rates/:code", controllers.GetCurrencyByCode)
 	r.POST("/update", controllers.UpdateData)
-
+	x
 	r.Run(":8080")
 }
