@@ -1,5 +1,8 @@
 name: Go
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
@@ -14,6 +17,12 @@ jobs:
       - name: Install dependencies
         run: go mod tidy
       - name: Build
-        run: go build -v cmd/main.go
+        run: go build -v ./...
       - name: Test with the Go CLI
-        run: go test ./...
+        run: go test -race -coverprofile=coverage.txt ./...
+      - name: Upload coverage results
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage.txt
+          name: Go
