@@ -14,6 +14,6 @@ jobs:
       - name: Install dependencies
         run: go get .
       - name: Build
-        run: go build -v ./...
+        run: go build -v cmd/main.go
       - name: Test with the Go CLI
         run: go test ./...
